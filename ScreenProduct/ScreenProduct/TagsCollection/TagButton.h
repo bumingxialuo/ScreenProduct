@@ -10,6 +10,12 @@
 #import "ScreeningListModel.h"
 
 @protocol TagButtonDelegate<NSObject>
+
+/**
+ 点击事件
+
+ @param tagId 传递数据
+ */
 - (void)returnTagIdWhileSelect:(NSString *)tagId;
 @end
 

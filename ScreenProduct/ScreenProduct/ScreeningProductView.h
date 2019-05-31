@@ -50,8 +50,8 @@
 /**
  筛选弹框
 
- @param listModel 网络获取数据源
- @param tagsModel 上次筛选标签
+ @param listModel 网络获取数据源。页面显示的元数据
+ @param tagsModel 上次筛选标签。记录上次筛选状态
  @return 实例
  */
 - (instancetype)initWithListModel:(ScreeningListModel *)listModel tagsModel:(TreeTagListModel *)tagsModel;

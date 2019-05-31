@@ -7,7 +7,7 @@
 //
 
 #import "HeadCollectionReusableView.h"
-#import <RdAppSkinColor.h>
+//#import <RdAppSkinColor.h>
 #import <Masonry.h>
 
 @interface HeadCollectionReusableView()
@@ -40,7 +40,7 @@
 - (void)createSubView {
     __weak typeof(self) weakSelf = self;
     _headLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width-30, 16)];
-    _headLabel.textColor = [RdAppSkinColor sharedInstance].emphasisSubTextColor;
+    _headLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     _headLabel.font = [UIFont systemFontOfSize:15];
     [self addSubview:_headLabel];
     [_headLabel mas_makeConstraints:^(MASConstraintMaker *make) {

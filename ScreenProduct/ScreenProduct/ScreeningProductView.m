@@ -8,12 +8,9 @@
 
 #import "ScreeningProductView.h"
 #import "SCCollectionButtonsView.h"
-#import "RDControlFactory.h"
-#import "RDMacro.h"
-#import "UIButton+Background.h"
+#import "Macro.h"
 #import "HandleTreeTagsModel.h"
 #import <Masonry.h>
-#import <RdAppSkinColor.h>
 #import <SVProgressHUD.h>
 
 @interface ScreeningProductView()<SCCollectionButtonsViewDelegate>
@@ -64,7 +61,9 @@
 
 #pragma mark - view opreation
 - (void)createLine {
-    UIView *line = [UIView getViewWithColor:[RdAppSkinColor sharedInstance].viewBackgroundColor superView:self];
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [self addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_offset(0);
         make.bottom.mas_offset(-(80*WIDTHRADIUS-1));
@@ -171,12 +170,12 @@
         _tagsView.leftAndRightMagin = 20.0;
         _tagsView.topAndBottonMagin = 20.0;
         _tagsView.height = 30;
-        _tagsView.normalBGColor = [RdAppSkinColor sharedInstance].viewBackgroundColor;
-        _tagsView.normalTextColor = [RdAppSkinColor sharedInstance].emphasisSubTextColor;
-        _tagsView.normalBoderColor = [RdAppSkinColor sharedInstance].viewBackgroundColor;
+        _tagsView.normalBGColor = [UIColor darkGrayColor];
+        _tagsView.normalTextColor = [UIColor grayColor];
+        _tagsView.normalBoderColor = [UIColor darkGrayColor];
         _tagsView.selectTextColor = [UIColor whiteColor];
-        _tagsView.selectBGColor = [RdAppSkinColor sharedInstance].mainColor;
-        _tagsView.selectBoderColor = [RdAppSkinColor sharedInstance].mainColor;
+        _tagsView.selectBGColor = [UIColor orangeColor];
+        _tagsView.selectBoderColor = [UIColor orangeColor];
         [_tagsView updateWithListModel:_listModel];
         [_tagsView setNormalBGColor:[UIColor whiteColor]] ;
         [self addSubview:_tagsView];
@@ -190,11 +189,17 @@
 
 - (UIButton *)resetButton {
     if (!_resetButton) {
-        _resetButton = [UIButton getButtonWithFontSize:16 TextColorHex:[RdAppSkinColor sharedInstance].emphasisSubTextColor backGroundColor:[UIColor whiteColor] radius:39*WIDTHRADIUS/2.0 superView:self];
+        _resetButton = [[UIButton alloc] init];
+        _resetButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_resetButton setTitleColor:[[UIColor blackColor] colorWithAlphaComponent:0.3] forState:UIControlStateNormal];
+        [_resetButton setBackgroundColor:[UIColor whiteColor]];
+        _resetButton.layer.cornerRadius = 39*WIDTHRADIUS/2.0;
+        _resetButton.layer.masksToBounds = YES;
         [_resetButton setTitle:@"重置" forState:UIControlStateNormal];
         [_resetButton addTarget:self action:@selector(resetButtonClick) forControlEvents:UIControlEventTouchUpInside];
         _resetButton.layer.borderWidth = 1;
-        _resetButton.layer.borderColor = [RdAppSkinColor sharedInstance].placeholderTextColor.CGColor;
+        _resetButton.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.9].CGColor;
+        [self addSubview:_resetButton];
         [_resetButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_offset(-20*WIDTHRADIUS);
             make.left.mas_offset(38*WIDTHRADIUS);
@@ -206,10 +211,15 @@
 
 - (UIButton *)sureButton {
     if (!_sureButton) {
-        _sureButton = [UIButton getButtonWithFontSize:16 TextColorHex:[UIColor whiteColor] backGroundColor:[UIColor whiteColor] radius:39*WIDTHRADIUS/2.0 superView:self];
-        [_sureButton setChameleonBackground];
+        _sureButton = [[UIButton alloc] init];
+        _sureButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_sureButton setBackgroundColor:[UIColor orangeColor]];
+        _sureButton.layer.cornerRadius = 39*WIDTHRADIUS/2.0;
+        _sureButton.layer.masksToBounds = YES;
         [_sureButton setTitle:@"确定" forState:UIControlStateNormal];
         [_sureButton addTarget:self action:@selector(sureButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_sureButton];
         [_sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_offset(-20*WIDTHRADIUS);
             make.right.mas_offset(-38*WIDTHRADIUS);
